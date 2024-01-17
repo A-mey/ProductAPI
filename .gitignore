@@ -1,3 +1,15 @@
+#nodejs files
 node_modules
-build
+.env
+.env.development
+.env.production
+.env.qc
+.env.staging
 dist
+
+#MacOS
+.DS_Store
+
+#logs
+Documents
+Logs

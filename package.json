@@ -4,8 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node-dev --respawn --transpile-only src/index.ts",
-    "prod": "tsc && node --unhandled-rejections=strict ./dist/index.js"
+    "test": "export DEPLOY_STAGE=development && mocha --timeout 60000 -r ts-node/register 'src/test/**/*.test.ts' --unhandled-rejections=strict",
+    "test-debug": "export DEBUG=* && npm test",
+    "start": "tsc && node --unhandled-rejections=strict --es-module-specifier-resolution=node ./dist/app.js",
+    "debug": "export DEBUG=* && npm run dev",
+    "dev": "export DEPLOY_STAGE=development && tsc && node --unhandled-rejections=strict ./dist/app.js",
+    "dev-boilerplate": "export DEPLOY_STAGE=development && concurrently -k \"tsc -p ./ -w\" \"nodemon ./dist/app.js\"",
+    "watch-dev": "export DEPLOY_STAGE=development && ts-node-dev --respawn ./src/app.ts",
+    "watch-qc": "export DEPLOY_STAGE=qc && ts-node-dev --respawn ./src/app.ts",
+    "start-qc": "export DEPLOY_STAGE=qc && ts-node-dev --respawn --transpile-only src/app.ts"
   },
   "author": "",
   "license": "ISC",

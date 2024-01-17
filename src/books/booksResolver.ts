@@ -6,24 +6,24 @@ import { Books } from "./books";
 export class BooksResolver {
   @Query(() => [Books])
   async books(@Ctx() context: Context) {
-    // The DataSources we set up in index.ts are accessible via the context in our resolvers by using the @Ctx() decorator.
+    // The DataSources we set up in app.ts are accessible via the context in our resolvers by using the @Ctx() decorator.
     const startTime = new Date();
-    const todos = await context.dataSources.booksDataSource.getBooks();
+    const books = await context.dataSources.booksDataSource.getBooks();
     console.log(
       `todos query took ${new Date().getTime() - startTime.getTime()}ms`
     );
-    return todos;
+    return books;
   }
 
   @Query(() => [Books])
   
   async getBookById(@Ctx() context: Context, @Arg("id") id: string) {
-    // The DataSources we set up in index.ts are accessible via the context in our resolvers by using the @Ctx() decorator.
+    // The DataSources we set up in app.ts are accessible via the context in our resolvers by using the @Ctx() decorator.
     const startTime = new Date();
-    const todos = await context.dataSources.booksDataSource.getBooksById(id);
+    const book = await context.dataSources.booksDataSource.getBooksById(id);
     console.log(
       `todos query took ${new Date().getTime() - startTime.getTime()}ms`
     );
-    return todos;
+    return book;
   }
 }

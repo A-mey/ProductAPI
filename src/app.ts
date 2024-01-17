@@ -1,10 +1,18 @@
 import "reflect-metadata";
+import * as dotenv from "dotenv";
 import { ApolloServer } from "apollo-server";
 import { buildSchema } from "type-graphql";
 import { BooksResolver } from "./books/booksResolver";
 import { BooksDataSource } from "./books/booksDataSource";
 
-const PORT = process.env.PORT || 4000;
+const dotenvResult = dotenv.config({ path: `.env.${process.env.DEPLOY_STAGE}` });
+if (dotenvResult.error) {
+    throw dotenvResult.error;
+}
+
+const PORT = process.env.PORT;
+
+console.log("PORT", PORT);
 
 async function bootstrap() {
   // Create an executable schema: https://typegraphql.com/docs/bootstrap.html#create-executable-schema
